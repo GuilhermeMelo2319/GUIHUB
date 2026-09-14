@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* === Cores customizáveis via JS (runtime) === */
+:root {
+  --hue-primary: 265;
+  --hue-accent: 330;
+  --color-on-primary: #ffffff;
+  --color-primary: hsl(var(--hue-primary), 70%, 55%);
+  --color-primary-light: hsl(var(--hue-primary), 70%, 72%);
+  --color-primary-glow: hsl(var(--hue-primary), 80%, 60%);
+  --color-accent: hsl(var(--hue-accent), 80%, 70%);
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-surface: #08080c;
+  --color-surface-light: rgba(255, 255, 255, 0.025);
+  --color-surface-lighter: rgba(255, 255, 255, 0.07);
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-text: #e4e4e7;
+  --color-text-muted: #71717a;
+}
+
+@theme {
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-surface: #08080c;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* === Scrollbar hidden === */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* === Widget 3D Card === */
+.widget-card {
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.widget-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsla(var(--hue-primary), 60%, 70%, 0.15),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.widget-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 20px hsla(var(--hue-primary), 60%, 50%, 0.05);
+}
+
+/* === Widget header glow === */
+.widget-header {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 100%
+  );
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* === React Grid Layout === */
+.react-grid-layout {
+  position: relative;
+}
+
+.react-grid-item {
+  transition: all 200ms ease;
+  border-radius: 1rem;
+}
+
+.react-grid-item.react-draggable-dragging {
+  z-index: 100;
+  opacity: 0.92;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    0 0 30px hsla(var(--hue-primary), 60%, 50%, 0.1);
+}
+
+.react-grid-item.resizing {
+  z-index: 100;
+  opacity: 0.92;
+}
+
+.react-grid-placeholder {
+  background: var(--color-primary) !important;
+  opacity: 0.08 !important;
+  border-radius: 1rem !important;
+  border: 1px dashed var(--color-primary-light) !important;
+}
+
+/* === Resize handle === */
+.react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 2px;
+  right: 2px;
+  cursor: se-resize;
+  z-index: 10;
+}
+
+.react-resizable-handle::after {
+  content: '';
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0 0 2px 0;
+  transition: border-color 0.2s;
+}
+
+.react-resizable-handle:hover::after {
+  border-color: var(--color-primary-light);
+}
+
+/* === Drag handle === */
+.widget-drag-handle {
+  cursor: grab;
+}
+.widget-drag-handle:active {
+  cursor: grabbing;
+}
